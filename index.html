@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Report Siswa — Jose Lionel Theo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --red: #c0111f;
+      --red-dark: #8b0c16;
+      --red-light: #fdf0f1;
+      --white: #ffffff;
+      --off-white: #f9f9f9;
+      --gray-200: #e8e8e8;
+      --gray-600: #5a5a5a;
+      --gray-800: #1a1a1a;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-md: 0 4px 20px rgba(192,17,31,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--gray-800);
+      line-height: 1.7;
+    }
+
+    header {
+      background: var(--red);
+      color: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(140,12,22,0.3);
+    }
+
+    .header-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-brand h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.3px;
+    }
+
+    .header-brand p {
+      font-size: 0.78rem;
+      opacity: 0.8;
+      font-weight: 300;
+      margin-top: 1px;
+    }
+
+    .header-meta {
+      text-align: right;
+      font-size: 0.78rem;
+      opacity: 0.8;
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    .hero {
+      background: linear-gradient(140deg, var(--red) 0%, var(--red-dark) 100%);
+      color: var(--white);
+      padding: 72px 32px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -80px;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.04);
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -60px;
+      width: 260px; height: 260px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.03);
+    }
+
+    .hero-photo {
+      width: 116px;
+      height: 116px;
+      border-radius: 50%;
+      border: 4px solid rgba(255,255,255,0.35);
+      margin: 0 auto 20px;
+      background: rgba(255,255,255,0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      margin-bottom: 6px;
+    }
+
+    .hero p {
+      font-size: 0.95rem;
+      opacity: 0.8;
+      font-weight: 300;
+    }
+
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 32px 80px;
+    }
+
+    .section {
+      margin-top: 60px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: var(--red);
+      padding-bottom: 14px;
+      margin-bottom: 24px;
+      border-bottom: 1.5px solid var(--gray-200);
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -1.5px; left: 0;
+      width: 44px; height: 2px;
+      background: var(--red);
+    }
+
+    .biodata-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .biodata-item {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 10px;
+      padding: 14px 20px;
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+    }
+
+    .bio-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--red);
+      min-width: 72px;
+      flex-shrink: 0;
+    }
+
+    .bio-value {
+      font-size: 0.93rem;
+      font-weight: 500;
+    }
+
+    .about-card {
+      background: var(--white);
+      border-left: 4px solid var(--red);
+      border-radius: 0 12px 12px 0;
+      padding: 26px 30px;
+      font-size: 0.95rem;
+      color: var(--gray-600);
+      line-height: 1.9;
+      box-shadow: var(--shadow-sm);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    thead tr {
+      background: var(--red);
+      color: var(--white);
+    }
+
+    thead th {
+      padding: 14px 22px;
+      text-align: left;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.1px;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid var(--gray-200);
+      transition: background 0.15s;
+    }
+
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: var(--red-light); }
+
+    tbody td {
+      padding: 13px 22px;
+      font-size: 0.93rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 14px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+
+    .badge-green  { background: #e6f9ee; color: #1a7a3c; }
+    .badge-blue   { background: #e8f0fd; color: #1a4ea0; }
+    .badge-yellow { background: #fff4e0; color: #9a6200; }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .card-header {
+      background: var(--red);
+      color: var(--white);
+      padding: 26px 24px 20px;
+    }
+
+    .card-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem;
+      font-weight: 900;
+      opacity: 0.18;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .card-body {
+      padding: 20px 24px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .card-desc {
+      font-size: 0.87rem;
+      color: var(--gray-600);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .btn {
+      display: block;
+      padding: 11px 0;
+      background: var(--red);
+      color: var(--white);
+      text-align: center;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      transition: background 0.15s;
+    }
+
+    .btn:hover { background: var(--red-dark); }
+
+    footer {
+      background: var(--gray-800);
+      color: rgba(255,255,255,0.45);
+      text-align: center;
+      padding: 28px 32px;
+      font-size: 0.8rem;
+    }
+
+    footer strong { color: #c0111f; }
+
+    @media (max-width: 768px) {
+      .header-inner { flex-direction: column; gap: 6px; text-align: center; padding: 14px 20px; }
+      .header-meta { text-align: center; }
+      .hero { padding: 52px 20px 44px; }
+      .hero h2 { font-size: 1.8rem; }
+      main { padding: 0 20px 60px; }
+      .biodata-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-brand">
+      <h1>Report Siswa TIK</h1>
+      <p>Teknologi Informasi dan Komunikasi — Semester Genap</p>
+    </div>
+    <div class="header-meta">
+      <p>Kelas XI A5</p>
+      <p>Absen 21</p>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <img src="foto.jpg" alt="Foto Profil">
+  <h2>Jose Lionel Theo</h2>
+  <p>Siswa Kelas XI A5 &nbsp;·&nbsp; Absen 21</p>
+</section>
+
+<main>
+
+  <div class="section">
+    <h2 class="section-title">Biodata Siswa</h2>
+    <div class="biodata-grid">
+      <div class="biodata-item">
+        <span class="bio-label">Nama</span>
+        <span class="bio-value">Jose Lionel Theo</span>
+      </div>
+      <div class="biodata-item">
+        <span class="bio-label">Kelas</span>
+        <span class="bio-value">XI A5 — Absen 21</span>
+      </div>
+      <div class="biodata-item">
+        <span class="bio-label">Sekolah</span>
+        <span class="bio-value">Kolese Kanisius</span>
+      </div>
+      <div class="biodata-item">
+        <span class="bio-label">Hobi</span>
+        <span class="bio-value">Olahraga</span>
+      </div>
+      <div class="biodata-item">
+        <span class="bio-label">Cita-cita</span>
+        <span class="bio-value">Jadi Orang Kaya</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Tentang Saya</h2>
+    <div class="about-card">
+      Saya adalah Jose Lionel Theo, siswa kelas XIA5 yang senang berolahraga dan bermain bola. Selama semester ini saya telah belajar banyak tentang pengembangan website, mulai dari HTML untuk membangun struktur halaman, CSS untuk mendesain tampilan yang menarik, hingga JavaScript untuk menambahkan interaktivitas. Pengalaman belajar TIK ini membuka wawasan saya tentang bagaimana sebuah website dibangun dari nol, dan semakin memperkuat niat saya untuk mendalami dunia pemrograman web lebih jauh ke depannya.
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Nilai Ulangan Semester</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Materi</th>
+          <th>Nilai</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Mini Project</td>
+          <td><span class="badge badge-green">100</span></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Web Biodata</td>
+          <td><span class="badge badge-green">100</span></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Nilai Ulangan</td>
+          <td><span class="badge badge-yellow">75</span></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>Nilai Analisis Javascript</td>
+          <td><span class="badge badge-blue">90</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Project Semester Ini</h2>
+    <div class="projects-grid">
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-num">01</div>
+          <div class="card-title">Emirates Stadium</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Website kelompok tentang Emirates Stadium, markas Arsenal FC. Dibuat menggunakan HTML, CSS, dan JavaScript untuk menampilkan informasi seputar stadion ikonik tersebut.</p>
+          <a href="project1.html" class="btn">Lihat Project →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-num">02</div>
+          <div class="card-title">Web Biodata Pribadi</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Website biodata pribadi sederhana yang menampilkan informasi diri, foto profil, dan data singkat menggunakan HTML dan CSS.</p>
+          <a href="project2.html" class="btn">Lihat Project →</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-num">03</div>
+          <div class="card-title">Web Development Essay</div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">Esai pengembangan web tentang elemen-elemen penting yang perlu ditambahkan dalam sebuah website agar lebih fungsional, menarik, dan user-friendly.</p>
+          <a href="project3.html" class="btn">Lihat Project →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>© 2025 <strong>Jose Lionel Theo</strong> — XI A5 · Absen 21 · TIK Semester Genap</p>
+</footer>
+
+<script>
+  console.log("Website Report Siswa — Jose Lionel Theo");
+  console.log("Kelas: XI A5 | Absen: 21");
+
+  document.querySelectorAll('.card').forEach(function(card) {
+    card.addEventListener('mouseenter', function() {
+      this.style.borderColor = '#c0111f';
+    });
+    card.addEventListener('mouseleave', function() {
+      this.style.borderColor = '#e8e8e8';
+    });
+  });
+</script>
+
+</body>
+</html>
